@@ -2,19 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-Color randomColor()
-{
+Color randomColor() {
   List<Color> colors = [
+    Colors.red,
     Colors.blue,
-    Colors.yellow,
     Colors.green,
     Colors.orange,
-    Colors.white,
-    Colors.cyan,
-    Colors.amber,
-    Colors.deepPurple,
+    Colors.brown,
+    Colors.grey,
+    Colors.blueGrey,
+    Colors.black,
   ];
   var randomNumber = Random().nextInt(colors.length);
-  if(randomNumber == colors.length) randomNumber = 0;
+  if (randomNumber == colors.length) randomNumber = 0;
   return colors[randomNumber];
 }

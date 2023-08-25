@@ -11,8 +11,16 @@ class AddTaskEvent extends HomeEvent {
 }
 
 class RemoveTaskEvent extends HomeEvent {
- int index;
+  int index;
   RemoveTaskEvent({
     required this.index,
   }) : super();
+}
+
+class NavigateToAddTasksPage extends HomeEvent {
+  BuildContext context;
+  NavigateToAddTasksPage({
+    required this.context,
+  });
+  
 }
