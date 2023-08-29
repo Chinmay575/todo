@@ -3,18 +3,36 @@ part of 'home_bloc.dart';
 
 abstract class HomeEvent {}
 
+class InitialEvent extends HomeEvent
+{
+  InitialEvent() : super();
+}
+
 class AddTaskEvent extends HomeEvent {
   String task;
+  Color? color;
+  String? desc;
   AddTaskEvent({
     required this.task,
+    this.color,
+    this.desc,
+  }) : super();
+
+}
+
+class MarkDoneEvent extends HomeEvent {
+  int index;
+  MarkDoneEvent({
+    required this.index,
   }) : super();
 }
 
-class RemoveTaskEvent extends HomeEvent {
-  int index;
+class RemoveTaskEvent extends HomeEvent
+{
+  Task task;
   RemoveTaskEvent({
-    required this.index,
-  }) : super();
+    required this.task,
+  });
 }
 
 class NavigateToAddTasksPage extends HomeEvent {
@@ -22,5 +40,5 @@ class NavigateToAddTasksPage extends HomeEvent {
   NavigateToAddTasksPage({
     required this.context,
   });
-  
 }
+

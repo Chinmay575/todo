@@ -7,11 +7,16 @@ class HomeState {
     required this.tasks,
   });
 
-  HomeState copyWith(List<Task> newTasks)
-  {
+  HomeState copyWith(List<Task> newTasks) {
     return HomeState(tasks: newTasks);
   }
-
-
-
 }
+
+class LoadingState extends HomeState {
+  LoadingState({required super.tasks});
+}
+
+// class HomeInitial extends HomeState
+// {
+
+// }

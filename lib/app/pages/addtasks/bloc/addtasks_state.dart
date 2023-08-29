@@ -2,8 +2,24 @@
 part of 'addtasks_bloc.dart';
 
 class AddtasksState {
-  String task;
+  String name;
+  String? desc = '';
+  Color? color = Colors.black;
   AddtasksState({
-    required this.task,
+    required this.name,
+    this.desc,
+    this.color,
   });
+
+  AddtasksState copyWith({
+    String? name,
+    String? desc,
+    Color? color,
+  }) {
+    return AddtasksState(
+      name: name ?? this.name,
+      desc: desc ?? this.desc,
+      color: color ?? this.color,
+    );
+  }
 }
