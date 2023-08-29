@@ -1,16 +1,28 @@
-# todo
 
-A new Flutter project.
+# To-Do App
 
-## Getting Started
+As the name suggests it is a to-do application made using flutter.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+# How to Use:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Press on + button to add a new Task.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Press on checkbox icon to mark the task completed.
+
+Long Press on any task to delete it.
+
+
+# Stay Tuned for new Updates
+
+## 🚀 About Me
+I'm a Chinmay Singh Modak, Flutter App Developer...
+
+Checkout my other projects:
+
+https://github.com/Chinmay575/chefio
+
+
+## 🔗 Links
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/chinmay-singh-modak/)
+
