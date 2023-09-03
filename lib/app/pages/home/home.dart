@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/app/models/task.dart';
 import 'package:todo/app/widgets/toasts.dart';
 
@@ -15,6 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // @override
+  // void initState() {
+  //   BlocProvider<HomeBloc>
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -45,12 +52,12 @@ class _HomePageState extends State<HomePage> {
                 : ListView.builder(
                     itemCount: state.tasks.length,
                     itemBuilder: (context, index) {
-                      Task _task = tasks[index];
+                      Task task = tasks[index];
                       return GestureDetector(
-                        onLongPress: () {
+                        onHorizontalDragEnd: (details) {
                           context
                               .read<HomeBloc>()
-                              .add(RemoveTaskEvent(task: _task));
+                              .add(RemoveTaskEvent(task: task));
 
                           if (Platform.isAndroid) {
                             showToast("Removed task");
@@ -65,7 +72,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           decoration: BoxDecoration(
-                            color: _task.color,
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -81,8 +87,9 @@ class _HomePageState extends State<HomePage> {
                                       .read<HomeBloc>()
                                       .add(MarkDoneEvent(index: index));
                                 },
-                                icon: (_task.isCompleted!)
-                                    ? const Icon(Icons.check_box_outlined)
+                                color: Colors.black,
+                                icon: (task.isCompleted!)
+                                    ? const Icon(Icons.check_box)
                                     : const Icon(Icons.check_box_outline_blank),
                               ),
                               Center(
@@ -91,10 +98,12 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    _resuableText(_task.name,
-                                        _task.isCompleted ?? false, "title"),
-                                    _resuableText(_task.desc ?? '',
-                                        _task.isCompleted ?? false, "subtitle")
+                                    _resuableText(task.name,
+                                        task.isCompleted ?? false, "title"),
+                                    _resuableText(task.desc ?? '',
+                                        task.isCompleted ?? false, "subtitle"),
+                                    _resuableText(checkDate(task.completeBy),
+                                        task.isCompleted ?? false, "time")
                                   ],
                                 ),
                               )
@@ -115,9 +124,9 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 height: 50,
                 width: 50,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.green.shade700,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -142,13 +151,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  String checkDate(DateTime time) {
+    if (compare(time)) {
+      return "Today";
+    } else {
+      return DateFormat('yMMMMd').format(time).toString();
+    }
+  }
+
+  bool compare(DateTime time) {
+    DateTime now = DateTime.now();
+    return (time.day == now.day &&
+        time.month == now.month &&
+        time.year == now.year);
+  }
+
   Widget _resuableText(String text, bool isCompleted, String type) {
     return Text(
-      text,
+      (text.length > 25) ? '${text.substring(0,25)}...' : text,
+      overflow: TextOverflow.fade,
       style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: (type == 'subtitle') ? 12 : 16,
+        color: Colors.black,
+        fontWeight: (type == 'title') ? FontWeight.bold : FontWeight.normal,
+        fontSize: (type == 'title') ? 18 : 12,
         decorationThickness: 2.0,
         decorationColor: Colors.black,
         decoration:

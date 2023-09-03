@@ -10,11 +10,11 @@ class InitialEvent extends HomeEvent
 
 class AddTaskEvent extends HomeEvent {
   String task;
-  Color? color;
   String? desc;
+  DateTime completeBy;
   AddTaskEvent({
     required this.task,
-    this.color,
+    required this.completeBy,
     this.desc,
   }) : super();
 

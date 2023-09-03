@@ -1,18 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 
 class Task {
   String name;
   String? desc;
   bool? isCompleted;
-  Color? color = Colors.black;
+  DateTime completeBy;
   Task({
     required this.name,
     this.desc,
     this.isCompleted = false,
-    this.color,
+    required this.completeBy,
   });
 
   static Map<String, dynamic> toMap(Task task) {
@@ -20,7 +19,7 @@ class Task {
       'name': task.name,
       'desc': task.desc,
       'isCompleted': task.isCompleted,
-      'color': task.color?.value,
+      'completeBy' : task.completeBy.toString(),
     };
   }
 
@@ -29,7 +28,8 @@ class Task {
       name: data['name'],
       desc: data['desc'],
       isCompleted: data['isCompleted'],
-      color: Color(data['color']),
+      completeBy: DateTime.parse(data['completeBy']) ,
+      
     );
   }
 

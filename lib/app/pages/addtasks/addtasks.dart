@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/app/pages/addtasks/bloc/addtasks_bloc.dart';
 import 'package:todo/app/pages/home/bloc/home_bloc.dart';
 import 'package:todo/app/widgets/toasts.dart';
@@ -23,10 +23,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
       body: SafeArea(
         child: BlocBuilder<AddtasksBloc, AddtasksState>(
           builder: (context, state) {
+            // DateTime now = DateTime.now();
             return Center(
               child: Container(
                 width: double.maxFinite,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -44,131 +45,99 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 325,
-                      child: TextField(
-                        onChanged: (value) {
-                          context
-                              .read<AddtasksBloc>()
-                              .add(GetTaskNameEvent(name: value));
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Enter task name....",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(color: Colors.grey),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Name: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      width: 325,
-                      child: TextField(
-                        onChanged: (value) {
-                          context
-                              .read<AddtasksBloc>()
-                              .add(GetDescriptionEvent(desc: value));
-                        },
-                        decoration: InputDecoration(
-                          hintText: "Enter description....",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      width: 325,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: state.color ?? Colors.black,
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  title: const Text('Pick a color!'),
-                                  content: SingleChildScrollView(
-                                    child: BlockPicker(
-                                      pickerColor: Colors.black,
-                                      onColorChanged: (color) {
-                                        context
-                                            .read<AddtasksBloc>()
-                                            .add(GetColorEvent(color: color));
-                                      },
-                                      availableColors: const [
-                                        Color(0xFF1E1E1E), // Almost Black
-                                        Color(0xFF2C3E50), // Dark Blue
-                                        Color(0xFF34495E), // Dark Slate Grey
-                                        Color(0xFF2E4053), // Dark Gunmetal
-                                        Color(0xFF4A235A), // Dark Purple
-                                        Color(0xFF7D6608), // Dark Yellow
-                                        Color(0xFF8E44AD), // Dark Orchid
-                                        Color(0xFFC0392B), // Dark Red
-                                        Color(0xFFD35400), // Dark Orange
-                                        Color(0xFFA93226), // Dark Flat Red
-                                        Color(0xFF27AE60), // Dark Green
-                                        Color(0xFF2980B9), // Dark Blue
-                                        Color(0xFF6A1B9A), // Dark Violet
-                                        Color(0xFFF39C12), // Dark Yellow
-                                        Color(0xFFE74C3C), // D
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    Center(
-                                      child: MaterialButton(
-                                        minWidth: 300,
-                                        height: 50,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        color: Colors.green,
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(); //dismiss the color picker
-                                        },
-                                        child: const Text(
-                                          'DONE',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        child: const Center(
-                          child: Text(
-                            "Tap to change color",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          width: 225,
+                          child: TextField(
+                            onChanged: (value) {
+                              context
+                                  .read<AddtasksBloc>()
+                                  .add(GetTaskNameEvent(name: value));
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter task name....",
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Description: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          width: 225,
+                          child: TextField(
+                            onChanged: (value) {
+                              context
+                                  .read<AddtasksBloc>()
+                                  .add(GetDescriptionEvent(desc: value));
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter description....",
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Complete By: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            // height: 100,
+                            alignment: Alignment.center,
+                            child: _dateWidget(
+                              "${state.completeBy.day}",
+                              DateFormat('MMM').format(state.completeBy),
+                              "${state.completeBy.year}",
+                              DateFormat('EEEE').format(state.completeBy),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     GestureDetector(
                       onTap: () {
                         BlocProvider.of<HomeBloc>(context).add(
                           AddTaskEvent(
                             task: state.name,
-                            color: state.color,
+                            completeBy: state.completeBy,
                             desc: state.desc,
                           ),
                         );
@@ -207,6 +176,58 @@ class _AddTaskPageState extends State<AddTaskPage> {
           },
         ),
       ),
+    );
+  }
+
+  _dateWidget(String day, String month, String year, String weekday) {
+    return Row(
+      children: [
+        Container(
+          width: 200,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(8.0),
+          margin: const EdgeInsets.only(right: 6.0),
+          decoration: BoxDecoration(
+              border: Border.all(),
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(5)),
+          child: Text(
+            "$day-$month-$year $weekday",
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            showDatePicker(
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
+              context: context,
+              builder: (context, child) {
+                return DatePickerDialog(
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                );
+              },
+            ).then(
+              (value) => {
+                context
+                    .read<AddtasksBloc>()
+                    .add(GetCompleteByEvent(completeBy: value ?? DateTime.now()))
+              },
+            );
+          },
+          child: const Icon(
+            Icons.calendar_month_outlined,
+            color: Colors.black,
+          ),
+        )
+      ],
     );
   }
 }

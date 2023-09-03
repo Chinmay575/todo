@@ -4,22 +4,22 @@ part of 'addtasks_bloc.dart';
 class AddtasksState {
   String name;
   String? desc = '';
-  Color? color = Colors.black;
+  DateTime completeBy;
   AddtasksState({
     required this.name,
     this.desc,
-    this.color,
+    required this.completeBy,
   });
 
   AddtasksState copyWith({
     String? name,
     String? desc,
-    Color? color,
+    DateTime? completeBy,
   }) {
     return AddtasksState(
       name: name ?? this.name,
       desc: desc ?? this.desc,
-      color: color ?? this.color,
+      completeBy: completeBy ?? this.completeBy,
     );
   }
 }

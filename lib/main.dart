@@ -7,8 +7,8 @@ import 'package:todo/app/pages/addtasks/bloc/addtasks_bloc.dart';
 import 'app/pages/home/bloc/home_bloc.dart';
 import 'app/pages/home/home.dart';
 
-void main() {
-  Global.init();
+Future<void> main() async {
+  await Global.init();
   runApp(const MyApp());
 }
 

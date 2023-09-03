@@ -5,15 +5,16 @@ part 'addtasks_event.dart';
 part 'addtasks_state.dart';
 
 class AddtasksBloc extends Bloc<AddtasksEvent, AddtasksState> {
-  AddtasksBloc() : super(AddtasksState(name: '', desc: '')) {
+  AddtasksBloc()
+      : super(AddtasksState(name: '', desc: '', completeBy: DateTime.now())) {
     on<GetTaskNameEvent>((event, emit) {
       emit(state.copyWith(name: event.name));
     });
     on<GetDescriptionEvent>((event, emit) {
       emit(state.copyWith(desc: event.desc));
     });
-    on<GetColorEvent>((event, emit) {
-      emit(state.copyWith(color: event.color));
+    on<GetCompleteByEvent>((event, emit) {
+      emit(state.copyWith(completeBy: event.completeBy));
     });
     on<NavigateToHomePageEvent>((event, emit) {
       Navigator.pop(event.context);

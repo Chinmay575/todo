@@ -12,8 +12,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<InitialEvent>(
       (event, emit) async {
         String t = await Global.prefs.getString('tasks');
-        List<Task> tasks = Task.decode(t);
-        emit(HomeState(tasks: tasks));
+        if (t.isNotEmpty) {
+          List<Task> tasks = Task.decode(t);
+          emit(HomeState(tasks: tasks));
+        }
+        else 
+        {
+          emit(HomeState(tasks: []));
+        }
+        
       },
     );
     on<AddTaskEvent>(
@@ -21,22 +28,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         List<Task> tasks = state.tasks;
         Task newtask = Task(
           name: event.task,
-          color: event.color,
           desc: event.desc,
+          completeBy: event.completeBy,
         );
         tasks.add(newtask);
-        print("Tasks: ");
-        print(tasks);
         await Global.prefs.setString('tasks', Task.encode(tasks));
         var t = await Global.prefs.getString('tasks');
         var temp = Task.decode(t);
-        for(var i in temp)
-        {
-          print("I am printed");
-          print(i.name);
-          print(i.desc);
-        }
-         print("I am printed 2");
         emit(state.copyWith(temp));
       },
     );

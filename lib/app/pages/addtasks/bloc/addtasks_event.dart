@@ -17,10 +17,10 @@ class GetDescriptionEvent extends AddtasksEvent {
   });
 }
 
-class GetColorEvent extends AddtasksEvent {
-  Color color;
-  GetColorEvent({
-    required this.color,
+class GetCompleteByEvent extends AddtasksEvent {
+  DateTime completeBy;
+  GetCompleteByEvent({
+    required this.completeBy,
   });
 }
 
