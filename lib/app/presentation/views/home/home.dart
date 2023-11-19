@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:todo/app/models/task.dart';
-import 'package:todo/app/widgets/toasts.dart';
+import 'package:todo/app/domain/models/task.dart';
+import 'package:todo/app/presentation/widgets/toasts.dart';
 
 import 'bloc/home_bloc.dart';
 

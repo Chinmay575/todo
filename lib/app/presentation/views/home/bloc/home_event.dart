@@ -41,4 +41,3 @@ class NavigateToAddTasksPage extends HomeEvent {
     required this.context,
   });
 }
-

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/app/global/init.dart';
-import 'package:todo/app/pages/addtasks/addtasks.dart';
-import 'package:todo/app/pages/addtasks/bloc/addtasks_bloc.dart';
+import 'package:todo/app/config/global/init.dart';
+import 'package:todo/app/config/router/router.dart';
 
-import 'app/pages/home/bloc/home_bloc.dart';
-import 'app/pages/home/home.dart';
+import 'package:todo/app/utils/constants/routes.dart';
+
 
 Future<void> main() async {
   await Global.init();
@@ -17,15 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => HomeBloc()..add(InitialEvent()),
-          lazy: false,
-        ),
-        BlocProvider(
-          create: (context) => AddtasksBloc(),
-        ),
-      ],
+      providers: [...AppRouter.allBlocProviders()],
       child: MaterialApp(
         title: 'To-Do App',
         debugShowCheckedModeBanner: false,
@@ -35,11 +26,8 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const HomePage(),
-          '/addTasks': (context) => const AddTaskPage(),
-        },
+        initialRoute: Routes.home,
+        onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
   }

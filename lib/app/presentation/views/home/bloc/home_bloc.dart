@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/app/global/init.dart';
-
-import '../../../models/task.dart';
+import 'package:todo/app/config/global/init.dart';
+import 'package:todo/app/domain/models/task.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -15,12 +14,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         if (t.isNotEmpty) {
           List<Task> tasks = Task.decode(t);
           emit(HomeState(tasks: tasks));
-        }
-        else 
-        {
+        } else {
           emit(HomeState(tasks: []));
         }
-        
       },
     );
     on<AddTaskEvent>(

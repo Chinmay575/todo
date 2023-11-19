@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:todo/app/pages/addtasks/bloc/addtasks_bloc.dart';
-import 'package:todo/app/pages/home/bloc/home_bloc.dart';
-import 'package:todo/app/widgets/toasts.dart';
+import 'package:todo/app/presentation/views/addtasks/bloc/addtasks_bloc.dart';
+import 'package:todo/app/presentation/views/home/bloc/home_bloc.dart';
+import 'package:todo/app/presentation/widgets/toasts.dart';
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({super.key});
@@ -216,9 +216,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
               },
             ).then(
               (value) => {
-                context
-                    .read<AddtasksBloc>()
-                    .add(GetCompleteByEvent(completeBy: value ?? DateTime.now()))
+                context.read<AddtasksBloc>().add(
+                    GetCompleteByEvent(completeBy: value ?? DateTime.now()))
               },
             );
           },
